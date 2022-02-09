@@ -4,22 +4,28 @@ import java.util.Random;
 
 public class Map {
 
-    private char[][] worldMap = {{'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-        {'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-        {'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-        {'x', 'x', 'x', 'C', 'x', 'x', 'x'},
-        {'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-        {'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-        {'x', 'x', 'x', 'x', 'x', 'x', 'x'}};
+    private String[][] worldMap = new String[7][7];
 
-    private char[][] worldMapDiscovered = new char[7][7];
+    private String[][] worldMapDiscovered = new String[7][7];
 
 
 
 // color codes: https://www.codeproject.com/Tips/5255355/How-to-Put-Color-on-Windows-Console
 
     public Map(){
-        char[] standLocs = {'t', 't', 'm', 'm', 'm', 'm', 'm', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'M', 'M', 'M', 'M',
+
+        for(int i = 0; i < 7; i++){
+            for(int j = 0; j < 7; j++){
+                worldMap[i][j] = "x";
+            }
+        }
+        worldMap[3][3] = "C";
+
+        String f = "\033[92mf\033[102m"; // forest - Light Green
+        String m = "\033[91mm\033[101m"; // mine - Light Red
+        String M = "\033[37mM\033[47m"; // Mountain - Light Grey
+        String t = "\033t\033"; // town -
+        String[] standLocs = {'t', 't', m, m, m, m, m, f, f, f, f, f, f, f, M, M, M, M,
                             'd', 'd', 'T', '%'};
         // locations with weights, that's why there are multiples
         Random rand = new Random();
@@ -30,7 +36,7 @@ public class Map {
 
             }
         }
-        worldMapDiscovered[3][3] = 'C';
+        worldMapDiscovered[3][3] = "C";
 
     }
 
