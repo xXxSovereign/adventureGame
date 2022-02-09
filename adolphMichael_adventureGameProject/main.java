@@ -5,6 +5,10 @@ public class main {
         Weapon sword = new Weapon(5, "Sharp", "Blunt Sword");
         Player player = new Player("Jogn");
 
+        System.out.println("test");
+        Map map = new Map();
+        map.displayMap();
+
     }
 
 }

@@ -1,0 +1,2 @@
+language = "java10"
+run = "java adolphMichael_adventureGameProject/main.java"
