@@ -5,9 +5,9 @@ import java.util.Hashtable;
 
 public class Map {
 
-    private String[][] worldMap = new String[7][7];
+    private String[][] worldMap = new String[11][11];
 
-    private String[][] worldMapDiscovered = new String[7][7];
+    private String[][] worldMapDiscovered = new String[11][11];
 
 
 
@@ -15,12 +15,12 @@ public class Map {
 
     public Map() {
 
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++) {
                 worldMap[i][j] = "x";
             }
         }
-        worldMap[3][3] = "C";
+        worldMap[5][5] = "\033[97mC";
 
         String f = "\033[92mf"; // forest - Light Green
         String m = "\033[91mm"; // mine - Light Red
@@ -45,8 +45,8 @@ public class Map {
         counts.put("Special", 0);
         counts.put("den", 0);
 
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++) {
                 locChoice = standLocs[rand.nextInt(standLocs.length)];
                 switch (locChoice) {
                     case "\033[92mf" -> counts.put("forest", counts.get("forest") + 1);
@@ -60,23 +60,23 @@ public class Map {
                 worldMapDiscovered[i][j] = locChoice;
 
             }
-            worldMapDiscovered[3][3] = "C";
+            worldMapDiscovered[5][5] = "\033[97m\033[4mC\033[24m";
 
         }
     }
 
 
     void displayMap(){
-        for(int i = 0; i < 7; i++){
-            for(int j = 0; j < 7; j++){
+        for(int i = 0; i < 11; i++){
+            for(int j = 0; j < 11; j++){
                 System.out.print(worldMap[i][j] + " ");
             } System.out.println();
         }
     }
 
     void displayMapDiscovered(){
-        for(int i = 0; i < 7; i++){
-            for(int j = 0; j < 7; j++){
+        for(int i = 0; i < 11; i++){
+            for(int j = 0; j < 11; j++){
                 System.out.print(worldMapDiscovered[i][j] + " ");
             } System.out.println();
         }
