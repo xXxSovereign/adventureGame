@@ -6,9 +6,8 @@ public class main {
         Player player = new Player("Jogn");
 
         Map map = new Map();
-        map.displayMap();
-        System.out.println("\n\n\n");
         map.displayMapDiscovered();
+
 
     }
 
