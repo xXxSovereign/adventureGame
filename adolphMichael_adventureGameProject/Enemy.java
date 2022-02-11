@@ -9,7 +9,7 @@ public class Enemy {
         this.name = name;
     }
 
-    int attack(){
+    int attack(Player target){
         return 0;
 
     }

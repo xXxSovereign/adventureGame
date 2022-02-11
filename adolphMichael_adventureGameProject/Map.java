@@ -2,7 +2,7 @@ package adolphMichael_adventureGameProject;
 
 import java.util.Random;
 import java.util.Hashtable;
-import java.util.concurrent.BlockingDeque;
+import java.util.Collections;
 
 public class Map {
 
@@ -34,7 +34,6 @@ public class Map {
                 d, d, d, d, d, T, p};
         // locations with weights, that's why there are multiples
         Random rand = new Random();
-
         String locChoice;
 
         Hashtable<String, Integer> counts = new Hashtable<String, Integer>();
@@ -55,6 +54,8 @@ public class Map {
                     case "\033[94md" -> counts.put("den", counts.get("den") + 1);
                 }
 
+                if (i == 5 && j == 5) { continue; }
+
                 if ((locChoice.equals("\033[97mT") || locChoice.equals("\033[97m%")) && (counts.get("Special") < 4)) {
                     counts.put("Special", counts.get("Special") + 1);
                     System.out.println(locChoice + " : " + counts.get("Special"));
@@ -67,9 +68,19 @@ public class Map {
                 }
                 worldMapDiscovered[i][j] = locChoice;
             }
-            worldMapDiscovered[5][5] = "\033[97m\033[4mC\033[24m";
 
         }
+        for (int i = 0; i < 5; i++){ shuffle(worldMapDiscovered); }
+        worldMapDiscovered[5][5] = "\033[97m\033[4mC\033[24m";
+
+        for (int i = 0; i<11; i++){
+            for (int j = 0; j<11; j++){
+                if (worldMapDiscovered[i][j] == null){
+                    worldMapDiscovered[i][j] = standLocs[rand.nextInt(standLocs.length)];
+                }
+            }
+        }
+
         counts.forEach(
                 (k, v) -> System.out.println("Key : " + k + ", Value : " + v));
     }
@@ -87,6 +98,21 @@ public class Map {
             for(int j = 0; j < 11; j++){
                 System.out.print(worldMapDiscovered[i][j] + " ");
             } System.out.println();
+        }
+    }
+
+    void shuffle(String[][] a) {
+        Random random = new Random();
+
+        for (int i = a.length - 1; i > 0; i--) {
+            for (int j = a[i].length - 1; j > 0; j--) {
+                int m = random.nextInt(i + 1);
+                int n = random.nextInt(j + 1);
+
+                String temp = a[i][j];
+                a[i][j] = a[m][n];
+                a[m][n] = temp;
+            }
         }
     }
 }
