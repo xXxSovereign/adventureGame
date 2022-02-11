@@ -11,4 +11,12 @@ public class Player {
         this.hp = 10;
         this.exp = 0;
     }
+
+    void die(){
+
+
+    }
+
+
+
 }

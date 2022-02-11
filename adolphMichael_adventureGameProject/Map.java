@@ -2,13 +2,13 @@ package adolphMichael_adventureGameProject;
 
 import java.util.Random;
 import java.util.Hashtable;
+import java.util.concurrent.BlockingDeque;
 
 public class Map {
 
     private String[][] worldMap = new String[11][11];
 
     private String[][] worldMapDiscovered = new String[11][11];
-
 
 
 // color codes: https://www.codeproject.com/Tips/5255355/How-to-Put-Color-on-Windows-Console
@@ -51,20 +51,28 @@ public class Map {
                 switch (locChoice) {
                     case "\033[92mf" -> counts.put("forest", counts.get("forest") + 1);
                     case "\033[91mm" -> counts.put("mine", counts.get("mine") + 1);
-                    case "\033[37mM" -> counts.put("Mountain", counts.get("Mountain") + 1);
                     case "\033[93mt" -> counts.put("town", counts.get("town") + 1);
-                    case "\033[97mT", "\033[97m%" -> counts.put("Special", counts.get("Special") + 1);
                     case "\033[94md" -> counts.put("den", counts.get("den") + 1);
                 }
 
-                worldMapDiscovered[i][j] = locChoice;
+                if ((locChoice.equals("\033[97mT") || locChoice.equals("\033[97m%")) && (counts.get("Special") < 4)) {
+                    counts.put("Special", counts.get("Special") + 1);
+                    System.out.println(locChoice + " : " + counts.get("Special"));
+                    worldMapDiscovered[i][j] = locChoice;
+                    continue;
 
+                } else if ((locChoice.equals("\033[97mT") || locChoice.equals("\033[97m%")) && (counts.get("Special") >= 4)) {
+                    j--;
+                    continue;
+                }
+                worldMapDiscovered[i][j] = locChoice;
             }
             worldMapDiscovered[5][5] = "\033[97m\033[4mC\033[24m";
 
         }
+        counts.forEach(
+                (k, v) -> System.out.println("Key : " + k + ", Value : " + v));
     }
-
 
     void displayMap(){
         for(int i = 0; i < 11; i++){
