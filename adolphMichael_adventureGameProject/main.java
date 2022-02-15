@@ -5,8 +5,12 @@ public class main {
         Weapon sword = new Weapon(5, "Sharp", "Blunt Sword");
         Player player = new Player("Jogn");
 
-        Map map = new Map();
+        for (int i = 0; i < 2589; i++){
+            System.out.print("");
+        }
+        Map map = new Map(39);
         map.displayMapDiscovered();
+
 
 
     }
