@@ -25,19 +25,20 @@ public class Map {
         }
         worldMap[(worldMap.length - 2)/2][(worldMap.length - 2)/2] = "\033[97mC";
 
-        String f = "\033[92mf"; // forest - Light Green
-        String m = "\033[91mm"; // mine - Light Red
+        String P = "\033[92mP"; // Plaza - Light Green
+        String G = "\033[91mG"; // Gun Store - Light Red
         String M = "\033[95mM"; // Mega-building - Light Magenta
-        String t = "\033[93mt"; // town - Light Yellow
+        String D = "\033[93mD"; // Drug Store - Light Yellow
         String T = "\033[97mT"; // Temple - White
         String p = "\033[97m%"; // % - White
-        String d = "\033[94md"; // den - Light Blue
+        String A = "\033[94mA"; // Apartment - Light Blue
+        String X = "\033[95mX"; // Placeholder Temp - Magenta
 
 
         // locations with weights, that's why there are multiples
         Random rand = new Random();
         String locChoice;
-        String[] outerLocs = {"\033[95mX"};
+        String[] outerLocs = {X};
 
         Hashtable<String, Integer> counts = new Hashtable<String, Integer>();
 
@@ -51,8 +52,6 @@ public class Map {
                 switch (locChoice) {
                     case "\033[95mM" -> counts.put("Mega-building", counts.get("Mega-building") + 1);
                 }
-
-                if (i == (worldMap.length - 2)/2 && j == (worldMap.length-2)/2) { continue; }
 
                 if ((locChoice.equals("\033[97mT") || locChoice.equals("\033[97m%")) && (counts.get("Special") < 9)) {
                     counts.put("Special", counts.get("Special") + 1);
@@ -69,23 +68,31 @@ public class Map {
 
         }
         //for (int i = 0; i < 5; i++){ shuffle(worldMapDiscovered); }
-        //worldMapDiscovered[(worldMap.length - 1)/2][(worldMap.length - 1)/2] = "\033[97m\033[4mC\033[24m";
 
-        for (int i = 1; i < worldMap.length - 1; i++){
-            for (int j = 1; j < worldMap.length - 1; j++){
-                if (worldMapDiscovered[i][j] == null){
-                    worldMapDiscovered[i][j] = outerLocs[rand.nextInt(outerLocs.length)];
-                }
-            }
-        }
-
-        for (int i = 0; i < worldMap.length; i++){
-            for (int j = 0; j < worldMap.length; j++){
-                if (worldMapDiscovered[i][j] == null){
+        for (int i = 0; i < worldMap.length; i++) {
+            for (int j = 0; j < worldMap.length; j++) {
+                System.out.print("");
+                if (worldMapDiscovered[i][j] == null) {
                     worldMapDiscovered[i][j] = "\033[30m\u2588\033[30m\u2588";
                 }
             }
         }
+
+
+
+        for (int i = 1; i < worldMap.length - 1; i++){
+            for (int j = 1; j < worldMap.length - 1; j++){
+
+                if (i % 3 == 0 && j != 1 && j != worldMap.length-2 && (i < 10 || i > 25) ){ worldMapDiscovered[i][j] = "=";}
+                if (j == 2 || j == worldMapDiscovered.length - 3){ worldMapDiscovered[i][j] = "I"; }
+
+                }
+            }
+
+
+
+
+
 
         counts.forEach(
                 (k, v) -> System.out.println("Key : " + k + ", Value : " + v));
